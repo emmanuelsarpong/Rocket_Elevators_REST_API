@@ -32,7 +32,7 @@ namespace Rocket_Elevators_REST_API
 
             string _connectionstr = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<ExampleContext>(options => 
+            services.AddDbContext<ElevatorContext>(options => 
                 options.UseMySql(_connectionstr,ServerVersion.AutoDetect(_connectionstr))
             );
 
