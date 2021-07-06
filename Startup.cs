@@ -35,6 +35,9 @@ namespace Rocket_Elevators_REST_API
             services.AddDbContext<ElevatorContext>(options => 
                 options.UseMySql(_connectionstr,ServerVersion.AutoDetect(_connectionstr))
             );
+            services.AddDbContext<batteriesContext>(options => 
+                options.UseMySql(_connectionstr,ServerVersion.AutoDetect(_connectionstr))
+            );
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
