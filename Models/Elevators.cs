@@ -4,18 +4,20 @@ using System;
 using System.Collections.Generic;  
 using System.Linq;  
 using System.Threading.Tasks; 
+using System.ComponentModel.DataAnnotations;
 
-public class ElevatorContext : DbContext
-{
-    public ElevatorContext(DbContextOptions<ElevatorContext> options) : base(options)
-    {
-    }
+// public class ElevatorContext : DbContext
+// {
+//     public ElevatorContext(DbContextOptions<ElevatorContext> options) : base(options)
+//     {
+//     }
 
-    public DbSet<ElevatorItem> elevators { get; set; }
-}
+//     public DbSet<ElevatorItem> elevators { get; set; }
+// }
 
 public class ElevatorItem
 {
+    [Key]
     public long id { get; set; }
     public string SerialNumber { get; set; }
     public string Model { get; set; }

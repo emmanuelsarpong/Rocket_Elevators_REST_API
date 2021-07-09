@@ -12,9 +12,9 @@ namespace Rocket_Elevators_REST_API.Controllers
     [ApiController]
     public class columnsController : ControllerBase
     {
-        private readonly columnsContext _context;
+        private readonly AllContext _context;
 
-        public columnsController(columnsContext context)
+        public columnsController(AllContext context)
         {
             _context = context;
         }
@@ -39,64 +39,92 @@ namespace Rocket_Elevators_REST_API.Controllers
 
             return columnsItem;
         }
-
-        // PUT: api/columns/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutcolumnsItem(long id, columnsItem columnsItem)
+        // PUT: api/columns/5   ********Active*********
+        [HttpPut("{id}/Active")]
+        public async Task<ActionResult<columnsItem>> PutcolumnsItem([FromRoute]long id)
         {
-            if (id != columnsItem.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(columnsItem).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!columnsItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/columns
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<columnsItem>> PostcolumnsItem(columnsItem columnsItem)
-        {
-            _context.columns.Add(columnsItem);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetcolumnsItem", new { id = columnsItem.id }, columnsItem);
-        }
-
-        // DELETE: api/columns/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletecolumnsItem(long id)
-        {
-            var columnsItem = await _context.columns.FindAsync(id);
-            if (columnsItem == null)
+            var columns = await this._context.columns.FindAsync(id);
+           if (columns == null)
             {
                 return NotFound();
             }
+            else
+            {
+                columns.Status = "Active";
+            }
 
-            _context.columns.Remove(columnsItem);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            this._context.columns.Update(columns);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of this the columns "  + columns.id + 
+             " Was change to "  + columns.Status);
         }
+
+        // PUT: api/columns/5    ******Inactive********
+        [HttpPut("{id}/Inactive")]
+        public async Task<ActionResult<columnsItem>> PutcolumnsItemi([FromRoute]long id)
+        {
+            var columns = await this._context.columns.FindAsync(id);
+           if (columns == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                columns.Status = "Inactive";
+            }
+
+            this._context.columns.Update(columns);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of this the columns "  + columns.id + 
+             " Was change to "  + columns.Status);
+        }
+
+            // PUT: api/columns/5    ******Intervention********
+        [HttpPut("{id}/Intervention")]
+        public async Task<ActionResult<columnsItem>> PutcolumnsItemin([FromRoute]long id)
+        {
+            var columns = await this._context.columns.FindAsync(id);
+           if (columns == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                columns.Status = "Intervention";
+            }
+
+            this._context.columns.Update(columns);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of this the columns "  + columns.id + 
+             " Was change to "  + columns.Status);
+        }
+
+        // // POST: api/columns
+        // // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // [HttpPost]
+        // public async Task<ActionResult<columnsItem>> PostcolumnsItem(columnsItem columnsItem)
+        // {
+        //     _context.columns.Add(columnsItem);
+        //     await _context.SaveChangesAsync();
+
+        //     return CreatedAtAction("GetcolumnsItem", new { id = columnsItem.id }, columnsItem);
+        // }
+
+        // // DELETE: api/columns/5
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> DeletecolumnsItem(long id)
+        // {
+        //     var columnsItem = await _context.columns.FindAsync(id);
+        //     if (columnsItem == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     _context.columns.Remove(columnsItem);
+        //     await _context.SaveChangesAsync();
+
+        //     return NoContent();
+        // }
 
         private bool columnsItemExists(long id)
         {

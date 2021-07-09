@@ -12,12 +12,24 @@ namespace Rocket_Elevators_REST_API.Controllers
     [ApiController]
     public class ElevatorsController : ControllerBase
     {
-        private readonly ElevatorContext _context;
+        private readonly AllContext _context;
 
-        public ElevatorsController(ElevatorContext context)
+        public ElevatorsController(AllContext context)
         {
             _context = context;
         }
+
+    [HttpGet("notactive")]
+        public async Task<IEnumerable<ElevatorItem>> Getelevatorsnotactive()
+        {
+            IQueryable<ElevatorItem> ElevatorItem = 
+            from elevator in _context.elevators
+            where elevator.Status != "Active"
+            select elevator;
+
+            return ElevatorItem.ToList();
+        }
+
 
         // GET: api/Elevators
         [HttpGet]
@@ -28,7 +40,7 @@ namespace Rocket_Elevators_REST_API.Controllers
 
         // GET: api/Elevators/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ElevatorItem>> GetElevatorItem(long id)
+        public async Task<ActionResult<ElevatorItem>> GetelevatorsItem(long id)
         {
             var elevatorItem = await _context.elevators.FindAsync(id);
 
@@ -42,33 +54,62 @@ namespace Rocket_Elevators_REST_API.Controllers
 
         // PUT: api/Elevators/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutElevatorItem(long id, ElevatorItem elevatorItem)
+
+        [HttpPut("{id}/Active")]        //************Active****************
+                public async Task<ActionResult<AllContext>> PutElevatorsItem([FromRoute]long id)
         {
-            if (id != elevatorItem.id)
+            var elevatorsItem = await this._context.elevators.FindAsync(id);
+            if (elevatorsItem == null)
             {
-                return BadRequest();
+                return NotFound();
+            }
+            else
+            {
+                elevatorsItem.Status = "Active";
             }
 
-            _context.Entry(elevatorItem).State = EntityState.Modified;
+            this._context.elevators.Update(elevatorsItem);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of the Elevators " + elevatorsItem.id + 
+             " Was change to " + elevatorsItem.Status);
+        }
 
-            try
+        [HttpPut("{id}/Inactive")]       //************Inactive****************
+                public async Task<ActionResult<AllContext>> PutElevatorsItemi([FromRoute]long id)
+        {
+            var elevatorsItem = await this._context.elevators.FindAsync(id);
+            if (elevatorsItem == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!ElevatorItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                elevatorsItem.Status = "Inactive";
             }
 
-            return NoContent();
+            this._context.elevators.Update(elevatorsItem);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of the Elevators " + elevatorsItem.id + 
+             " Was change to " + elevatorsItem.Status);
+        }
+
+        [HttpPut("{id}/Intervention")]    //************Intervention****************
+                public async Task<ActionResult<AllContext>> PutElevatorsItemin([FromRoute]long id)
+        {
+            var elevatorsItem = await this._context.elevators.FindAsync(id);
+            if (elevatorsItem == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                elevatorsItem.Status = "Intervention";
+            }
+
+            this._context.elevators.Update(elevatorsItem);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of the Elevators " + elevatorsItem.id + 
+             " Was change to " + elevatorsItem.Status);
         }
 
         // POST: api/Elevators
