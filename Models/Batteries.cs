@@ -4,22 +4,23 @@ using System;
 using System.Collections.Generic;  
 using System.Linq;  
 using System.Threading.Tasks; 
+using System.ComponentModel.DataAnnotations;
 
-public class batteriesContext : DbContext
-{
-    public batteriesContext(DbContextOptions<batteriesContext> options) : base(options)
-    {
-    }
+// public class batteriesContext : DbContext
+// {
+//     public batteriesContext(DbContextOptions<batteriesContext> options) : base(options)
+//     {
+//     }
 
-    public DbSet<batteriesItem> batteries { get; set; }
-}
+//     // public DbSet<batteriesItem> batteries { get; set; }
+// }
 
 public class batteriesItem
 {
+    [Key]
     public long id { get; set; }
-
-    // [Column(TypeName = "varchar(255)")]
     public string BType { get; set; }
+    public string Status { get; set; }
     public DateTime DateOfCommissioning { get; set; }
     public DateTime DateOfLastInspection { get; set;}
     public string Info { get; set; }
@@ -30,4 +31,4 @@ public class batteriesItem
     public long employee_id { get; set;}
 }
  
-//dotnet aspnet-codegenerator controller -name batteriesController -async -api -m batteriesItem -dc batteriesContext -outDir Controllers
+//dotnet aspnet-codegenerator controller -name BuildingController -async -api -m BuildingItem -dc BuildingContext -outDir Controllers

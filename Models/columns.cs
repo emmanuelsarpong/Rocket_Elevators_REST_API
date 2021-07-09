@@ -4,18 +4,20 @@ using System;
 using System.Collections.Generic;  
 using System.Linq;  
 using System.Threading.Tasks; 
+using System.ComponentModel.DataAnnotations;
 
-public class columnsContext : DbContext
-{
-    public columnsContext(DbContextOptions<columnsContext> options) : base(options)
-    {
-    }
+// public class columnsContext : DbContext
+// {
+//     public columnsContext(DbContextOptions<columnsContext> options) : base(options)
+//     {
+//     }
 
-    public DbSet<columnsItem> columns { get; set; }
-}
+//     public DbSet<columnsItem> columns { get; set; }
+// }
 
 public class columnsItem
 {
+    [Key]
     public long id { get; set; }
      public string ColumnType { get; set; }
     public int NbOfFloorsServed { get; set; }

@@ -12,9 +12,9 @@ namespace Rocket_Elevators_REST_API.Controllers
     [ApiController]
     public class batteriesController : ControllerBase
     {
-        private readonly batteriesContext _context;
+        private readonly AllContext _context;
 
-        public batteriesController(batteriesContext context)
+        public batteriesController(AllContext context)
         {
             _context = context;
         }
@@ -41,35 +41,87 @@ namespace Rocket_Elevators_REST_API.Controllers
         }
 
         // PUT: api/batteries/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutbatteriesItem(long id, batteriesItem batteriesItem)
+
+            [HttpPut("{id}/Active")]        //************Active****************
+            public async Task<ActionResult<AllContext>> PutbatteriesItem([FromRoute]long id)
         {
-            if (id != batteriesItem.id)
+            var batteriesItem = await this._context.batteries.FindAsync(id);
+            if (batteriesItem == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-
-            _context.Entry(batteriesItem).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                batteriesItem.Status = "Active";
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!batteriesItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            this._context.batteries.Update(batteriesItem);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of the batteries " + batteriesItem.id + 
+             " Was change to " + batteriesItem.Status);
         }
+
+        [HttpPut("{id}/Inactive")]                 //************Inactive****************
+            public async Task<ActionResult<AllContext>> PutbatteriesItemi([FromRoute]long id)
+        {
+            var batteriesItem = await this._context.batteries.FindAsync(id);
+            if (batteriesItem == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                batteriesItem.Status = "Inactive";
+            }
+            this._context.batteries.Update(batteriesItem);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of the batteries " + batteriesItem.id + 
+             " Was change to " + batteriesItem.Status);
+        }
+
+            [HttpPut("{id}/Intervention")]          //************Intervention****************
+            public async Task<ActionResult<AllContext>> PutbatteriesItemin([FromRoute]long id)
+        {
+            var batteriesItem = await this._context.batteries.FindAsync(id);
+            if (batteriesItem == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                batteriesItem.Status = "Intervention";
+            }
+            this._context.batteries.Update(batteriesItem);
+            await this._context.SaveChangesAsync();
+            return Content(" Status of the batteries " + batteriesItem.id + 
+             " Was change to " + batteriesItem.Status);
+        }
+        // public async Task<IActionResult> PutbatteriesItem(long id, batteriesItem batteriesItem)
+        // {
+        //     if (id != batteriesItem.id)
+        //     {
+        //         return BadRequest();
+        //     }
+
+        //     _context.Entry(batteriesItem).State = EntityState.Modified;
+
+        //     try
+        //     {
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     catch (DbUpdateConcurrencyException)
+        //     {
+        //         if (!batteriesItemExists(id))
+        //         {
+        //             return NotFound();
+        //         }
+        //         else
+        //         {
+        //             throw;
+        //         }
+        //     }
+
+        //     return NoContent();
+        // }
 
         // POST: api/batteries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

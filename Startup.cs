@@ -32,15 +32,10 @@ namespace Rocket_Elevators_REST_API
 
             string _connectionstr = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<ElevatorContext>(options => 
+            services.AddDbContext<AllContext>(options => 
                 options.UseMySql(_connectionstr,ServerVersion.AutoDetect(_connectionstr))
             );
-            services.AddDbContext<batteriesContext>(options => 
-                options.UseMySql(_connectionstr,ServerVersion.AutoDetect(_connectionstr))
-            );
-            services.AddDbContext<columnsContext>(options => 
-                options.UseMySql(_connectionstr,ServerVersion.AutoDetect(_connectionstr))
-            );
+            
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -49,6 +44,9 @@ namespace Rocket_Elevators_REST_API
             });
 
             services.AddMvc();
+
+            services.AddDbContext<leadContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("leadContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
