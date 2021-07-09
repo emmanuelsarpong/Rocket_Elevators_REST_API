@@ -28,9 +28,23 @@ namespace Rocket_Elevators_REST_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AllContext>(options =>
-            options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddCors();
+
+            string _connectionstr = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<AllContext>(options => 
+                options.UseMySql(_connectionstr,ServerVersion.AutoDetect(_connectionstr))
+            );
+            
+
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rocket_Elevators_REST_API", Version = "v1" });
+            });
+
+            services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
