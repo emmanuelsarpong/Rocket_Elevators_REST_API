@@ -4,6 +4,8 @@ Rocket elevator REST Api
 GET
 `https://rocketelevatorapi.azurewebsites.net/api/columns/5`
 
+this command is how u get the columns you try too change
+
 
 PUT
 api/columns/5/Active
@@ -54,6 +56,8 @@ api/columns/5/Intervention
 GET
 api/elevators/5
 <https://rocketelevatorapi.azurewebsites.net/api/elevators/5
+
+this command is how u get the elevator u try too change
 
 api/elevators/5/Active
 <https://rocketelevatorapi.azurewebsites.net/api/elevators/5/Active
@@ -115,6 +119,8 @@ GET
 api/batteries/5
 <https://rocketelevatorapi.azurewebsites.net/api/batteries/5
 
+this command is how u get the batteries you try too change
+
 api/batteries/5/Active
 <https://rocketelevatorapi.azurewebsites.net/api/batteries/5/Active
 
@@ -169,8 +175,14 @@ api/batteries/5/Intervention
 api/elevators/notactive
 <https://rocketelevatorapi.azurewebsites.net/api/elevators/notactive
 
+this command is how u get the elevator that are not active
+
 api/building/Intervention
 <https://rocketelevatorapi.azurewebsites.net/api/building/Intervention
 
+this command is how u get the building that need intervention
+
 api/lead
 <https://rocketelevatorapi.azurewebsites.net/api/lead
+
+this command is how u get a list of lead
