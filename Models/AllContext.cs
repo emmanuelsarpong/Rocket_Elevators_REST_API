@@ -12,6 +12,8 @@ public class AllContext : DbContext
     public DbSet<columnsItem> columns { get; set; }
     public DbSet<ElevatorItem> elevators { get; set; }
     public DbSet<leadItem> leads { get; set; }
-    public DbSet<CustomerItem> customers { get; set; }
+    public DbSet<CustomersItem> customers { get; set; }
+    public DbSet<interventionsItem> interventions { get; set; }
+
 
 }

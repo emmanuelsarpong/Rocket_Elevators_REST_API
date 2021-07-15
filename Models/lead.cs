@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 
-
 public class leadItem
 {
     public long Id { get; set; }

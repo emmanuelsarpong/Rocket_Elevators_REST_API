@@ -6,15 +6,6 @@ using System.Linq;
 using System.Threading.Tasks; 
 using System.ComponentModel.DataAnnotations;
 
-// public class batteriesContext : DbContext
-// {
-//     public batteriesContext(DbContextOptions<batteriesContext> options) : base(options)
-//     {
-//     }
-
-//     // public DbSet<batteriesItem> batteries { get; set; }
-// }
-
 public class batteriesItem
 {
     [Key]

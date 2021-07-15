@@ -39,6 +39,7 @@ namespace Rocket_Elevators_REST_API.Controllers
 
             return columnsItem;
         }
+        
         // PUT: api/columns/5   ********Active*********
         [HttpPut("{id}/Active")]
         public async Task<ActionResult<columnsItem>> PutcolumnsItem([FromRoute]long id)
@@ -98,33 +99,6 @@ namespace Rocket_Elevators_REST_API.Controllers
             return Content(" Status of this the columns "  + columns.id + 
              " Was change to "  + columns.Status);
         }
-
-        // // POST: api/columns
-        // // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPost]
-        // public async Task<ActionResult<columnsItem>> PostcolumnsItem(columnsItem columnsItem)
-        // {
-        //     _context.columns.Add(columnsItem);
-        //     await _context.SaveChangesAsync();
-
-        //     return CreatedAtAction("GetcolumnsItem", new { id = columnsItem.id }, columnsItem);
-        // }
-
-        // // DELETE: api/columns/5
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeletecolumnsItem(long id)
-        // {
-        //     var columnsItem = await _context.columns.FindAsync(id);
-        //     if (columnsItem == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     _context.columns.Remove(columnsItem);
-        //     await _context.SaveChangesAsync();
-
-        //     return NoContent();
-        // }
 
         private bool columnsItemExists(long id)
         {

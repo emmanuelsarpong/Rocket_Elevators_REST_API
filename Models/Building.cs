@@ -6,15 +6,6 @@ using System.Linq;
 using System.Threading.Tasks; 
 using System.ComponentModel.DataAnnotations;
 
-// public class BuildingContext : DbContext
-// {
-//     public BuildingContext(DbContextOptions<BuildingContext> options) : base(options)
-//     {
-//     }
-
-//     public DbSet<BuildingItem> building { get; set; }
-// }
-
 public class BuildingItem
 {
     [Key]

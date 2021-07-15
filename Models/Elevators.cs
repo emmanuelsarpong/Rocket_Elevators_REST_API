@@ -6,15 +6,6 @@ using System.Linq;
 using System.Threading.Tasks; 
 using System.ComponentModel.DataAnnotations;
 
-// public class ElevatorContext : DbContext
-// {
-//     public ElevatorContext(DbContextOptions<ElevatorContext> options) : base(options)
-//     {
-//     }
-
-//     public DbSet<ElevatorItem> elevators { get; set; }
-// }
-
 public class ElevatorItem
 {
     [Key]

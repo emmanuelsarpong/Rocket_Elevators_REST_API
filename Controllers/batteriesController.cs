@@ -95,36 +95,7 @@ namespace Rocket_Elevators_REST_API.Controllers
             return Content(" Status of the batteries " + batteriesItem.id + 
              " Was change to " + batteriesItem.Status);
         }
-        // public async Task<IActionResult> PutbatteriesItem(long id, batteriesItem batteriesItem)
-        // {
-        //     if (id != batteriesItem.id)
-        //     {
-        //         return BadRequest();
-        //     }
-
-        //     _context.Entry(batteriesItem).State = EntityState.Modified;
-
-        //     try
-        //     {
-        //         await _context.SaveChangesAsync();
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!batteriesItemExists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         else
-        //         {
-        //             throw;
-        //         }
-        //     }
-
-        //     return NoContent();
-        // }
-
-        // POST: api/batteries
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+      
         [HttpPost]
         public async Task<ActionResult<batteriesItem>> PostbatteriesItem(batteriesItem batteriesItem)
         {

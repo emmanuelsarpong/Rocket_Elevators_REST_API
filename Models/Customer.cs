@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks; 
 using System.ComponentModel.DataAnnotations;
 
-
-public class CustomerItem
+public class CustomersItem
 {
     public long Id { get; set; }
     public string EmailOfTheCompany { get; set; }

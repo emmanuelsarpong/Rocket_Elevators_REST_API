@@ -6,15 +6,6 @@ using System.Linq;
 using System.Threading.Tasks; 
 using System.ComponentModel.DataAnnotations;
 
-// public class columnsContext : DbContext
-// {
-//     public columnsContext(DbContextOptions<columnsContext> options) : base(options)
-//     {
-//     }
-
-//     public DbSet<columnsItem> columns { get; set; }
-// }
-
 public class columnsItem
 {
     [Key]
@@ -30,3 +21,4 @@ public class columnsItem
 }
  
 //dotnet aspnet-codegenerator controller -name columnsController -async -api -m columnsItem -dc columnsContext -outDir Controllers
+

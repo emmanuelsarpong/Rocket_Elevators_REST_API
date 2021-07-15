@@ -39,64 +39,6 @@ namespace Rocket_Elevators_REST_API.Controllers
             return Building.ToList();
         }
 
-        // PUT: api/Building/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> PutBuildingItem(long id, BuildingItem buildingItem)
-        // {
-        //     if (id != buildingItem.id)
-        //     {
-        //         return BadRequest();
-        //     }
-
-        //     _context.Entry(buildingItem).State = EntityState.Modified;
-
-        //     try
-        //     {
-        //         await _context.SaveChangesAsync();
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!BuildingItemExists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         else
-        //         {
-        //             throw;
-        //         }
-        //     }
-
-        //     return NoContent();
-        // }
-
-        // POST: api/Building
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPost]
-        // public async Task<ActionResult<BuildingItem>> PostBuildingItem(BuildingItem buildingItem)
-        // {
-        //     _context.building.Add(buildingItem);
-        //     await _context.SaveChangesAsync();
-
-        //     return CreatedAtAction("GetBuildingItem", new { id = buildingItem.id }, buildingItem);
-        // }
-
-        // // DELETE: api/Building/5
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeleteBuildingItem(long id)
-        // {
-        //     var buildingItem = await _context.building.FindAsync(id);
-        //     if (buildingItem == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     _context.building.Remove(buildingItem);
-        //     await _context.SaveChangesAsync();
-
-        //     return NoContent();
-        // }
-
         private bool BuildingItemExists(long id)
         {
             return _context.buildings.Any(e => e.id == id);
