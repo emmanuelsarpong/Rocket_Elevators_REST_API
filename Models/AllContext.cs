@@ -13,7 +13,8 @@ public class AllContext : DbContext
     public DbSet<ElevatorItem> elevators { get; set; }
     public DbSet<leadItem> leads { get; set; }
     public DbSet<CustomersItem> customers { get; set; }
-    public DbSet<interventionsItem> interventions { get; set; }
+    public DbSet<InterventionsItem> interventions { get; set; }
+    public DbSet<EmployeesItem> employees { get; set; }
 
 
 }

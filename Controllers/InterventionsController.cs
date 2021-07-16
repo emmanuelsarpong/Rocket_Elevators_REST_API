@@ -10,38 +10,41 @@ namespace Rocket_Elevators_REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class interventionsController : ControllerBase
+    public class InterventionsController : ControllerBase
     {
         private readonly AllContext _context;
 
-        public interventionsController(AllContext context)
+        public InterventionsController(AllContext context)
         {
             _context = context;
         }
 
         // GET: api/interventions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<interventionsItem>>> Getinterventions()
+        public async Task<ActionResult<IEnumerable<InterventionsItem>>> Getinterventions()
         {
+            System.Diagnostics.Debug.WriteLine("Hello this is a test");
             return await _context.interventions.ToListAsync();
+            
         }
 
         //GET: Returns all fields of all Service 
         //Request records that do not have a start date and are in "Pending" status.
         //https://localhost:5001/api/intervention/PendingList
          [HttpGet("PendingList")]
-        public IEnumerable<interventionsItem> GetInterventions() {
-            IQueryable<interventionsItem> Interventions =
+        public IEnumerable<InterventionsItem> GetInterventions() {
+            IQueryable<InterventionsItem> Interventions =
             from le in _context.interventions
             where le.Start_Date == null && le.Status == "Pending"
             select le;
+            
 
             return Interventions.ToList();
         }
 
         // GET: api/interventions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<interventionsItem>> GetinterventionsItem(long id)
+        public async Task<ActionResult<InterventionsItem>> GetinterventionsItem(long id)
         {
             var interventionsItem = await _context.interventions.FindAsync(id);
 
@@ -54,85 +57,45 @@ namespace Rocket_Elevators_REST_API.Controllers
         }
 
         // PUT: api/interventions/5
-
-            [HttpPut("{id}/Active")]        //************Active****************
-            public async Task<ActionResult<AllContext>> PutinterventionsItem([FromRoute]long id)
+        [HttpPut("{id}/inprogress")]        //************Active****************
+        public async Task<ActionResult<AllContext>> PutinterventionsItem([FromRoute]long id)
         {
             var interventionsItem = await this._context.interventions.FindAsync(id);
-            if (interventionsItem == null)
+            if (interventionsItem.Status == "Pending")
             {
-                return NotFound();
+                interventionsItem.Status = "inprogress";
+                interventionsItem.Start_Date = DateTime.Now;
             }
             else
             {
-                interventionsItem.Status = "Active";
+                return NotFound();
             }
             this._context.interventions.Update(interventionsItem);
             await this._context.SaveChangesAsync();
-            return Content(" Status of the interventions " + interventionsItem.id + 
+            return Content(interventionsItem.Start_Date + "of the interventions " + interventionsItem.id + 
              " Was change to " + interventionsItem.Status);
         }
 
-        [HttpPut("{id}/Inactive")]                 //************Inactive****************
-            public async Task<ActionResult<AllContext>> PutinterventionsItemi([FromRoute]long id)
+        // PUT: api/interventions/5
+        [HttpPut("{id}/complete")]        //************Active****************
+        public async Task<ActionResult<AllContext>> ChangeToComplete([FromRoute]long id)
         {
             var interventionsItem = await this._context.interventions.FindAsync(id);
-            if (interventionsItem == null)
+            if (interventionsItem.Status == "inprogress")
             {
-                return NotFound();
+                interventionsItem.Status = "complete";
+                interventionsItem.End_Date = DateTime.Now;
             }
             else
             {
-                interventionsItem.Status = "Inactive";
+                return NotFound();
             }
             this._context.interventions.Update(interventionsItem);
             await this._context.SaveChangesAsync();
-            return Content(" Status of the interventions " + interventionsItem.id + 
+            return Content(interventionsItem.End_Date + "of the interventions " + interventionsItem.id + 
              " Was change to " + interventionsItem.Status);
         }
 
-            [HttpPut("{id}/Intervention")]          //************Intervention****************
-            public async Task<ActionResult<AllContext>> PutinterventionsItemin([FromRoute]long id)
-        {
-            var interventionsItem = await this._context.interventions.FindAsync(id);
-            if (interventionsItem == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                interventionsItem.Status = "Intervention";
-            }
-            this._context.interventions.Update(interventionsItem);
-            await this._context.SaveChangesAsync();
-            return Content(" Status of the interventions " + interventionsItem.id + 
-             " Was change to " + interventionsItem.Status);
-        }
-      
-        [HttpPost]
-        public async Task<ActionResult<interventionsItem>> PostinterventionsItem(interventionsItem interventionsItem)
-        {
-            _context.interventions.Add(interventionsItem);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetinterventionsItem", new { id = interventionsItem.id }, interventionsItem);
-        }
-
-        // DELETE: api/interventions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteinterventionsItem(long id)
-        {
-            var interventionsItem = await _context.interventions.FindAsync(id);
-            if (interventionsItem == null)
-            {
-                return NotFound();
-            }
-
-            _context.interventions.Remove(interventionsItem);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
 
         private bool interventionsItemExists(long id)
         {

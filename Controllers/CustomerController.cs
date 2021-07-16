@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using RocketElevatorApi.Models;
-
 namespace RocketElevatorApi.Controllers
 {
     [Route("api/[controller]")]
