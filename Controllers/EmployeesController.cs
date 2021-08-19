@@ -1,30 +1,42 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGeneration.Design;
-using System;
 
-
-namespace Rocket_Elevators_REST_API.Controllers
+namespace Rocket_Employees_REST_API.Controllers
 {
-    [Route("api/employee")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly AllContext _context;
-        public EmployeeController(AllContext context)
+        public EmployeesController(AllContext context)
         {
             _context = context;
         }
-
-        // To see all the employees                          
-        // GET: api/employees/all
-        [HttpGet("all")]
-        public IEnumerable<EmployeesItem> GetEmployee()
+                      
+        // GET: api/employees
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EmployeesItem>>>  GetEmployee()
         {
-            return _context.employees;
+            return await _context.employees.ToListAsync();
+        }
+
+        // GET: api/Employees/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EmployeesItem>> GetEmployeesItem(long id)
+        {
+            var EmployeesItem = await _context.employees.FindAsync(id);
+
+            if (EmployeesItem == null)
+            {
+                return NotFound();
+            }
+
+            return EmployeesItem;
         }
 
         // To get an intervention by email                             
@@ -41,6 +53,5 @@ namespace Rocket_Elevators_REST_API.Controllers
 
             return Ok();
         }
-
     }
 }
